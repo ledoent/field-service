@@ -9,11 +9,9 @@ class ResTerritory(models.Model):
     _description = "Territory"
 
     name = fields.Char(required=True)
-    branch_id = fields.Many2one("res.branch", string="Branch")
-    district_id = fields.Many2one(related="branch_id.district_id", string="District")
-    region_id = fields.Many2one(
-        related="branch_id.district_id.region_id", string="Region"
-    )
+    branch_id = fields.Many2one("res.branch")
+    district_id = fields.Many2one(related="branch_id.district_id")
+    region_id = fields.Many2one(related="branch_id.district_id.region_id")
     description = fields.Char()
     type = fields.Selection(
         [("zip", "Zip"), ("state", "State"), ("country", "Country")],
