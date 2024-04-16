@@ -265,7 +265,6 @@ msgstr ""
 
 #. module: fieldservice_recurring
 #: model:ir.actions.server,name:fieldservice_recurring.recurring_orders_cron_ir_actions_server
-#: model:ir.cron,cron_name:fieldservice_recurring.recurring_orders_cron
 msgid "Field Service: generate recurring orders"
 msgstr "Field Service: Generieren Sie wiederkehrende Aufträge"
 
@@ -426,14 +425,6 @@ msgid "June"
 msgstr "Juni"
 
 #. module: fieldservice_recurring
-#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency____last_update
-#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency_set____last_update
-#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring____last_update
-#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring_template____last_update
-msgid "Last Modified on"
-msgstr "Zuletzt geändert am"
-
-#. module: fieldservice_recurring
 #: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency__write_uid
 #: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency_set__write_uid
 #: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring__write_uid
@@ -459,14 +450,6 @@ msgstr "Nachfolgender Puffer"
 #: model_terms:ir.ui.view,arch_db:fieldservice_recurring.fsm_recurring_search_view
 msgid "Location"
 msgstr "Standort"
-
-#. module: fieldservice_recurring
-#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency__message_main_attachment_id
-#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency_set__message_main_attachment_id
-#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring__message_main_attachment_id
-#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring_template__message_main_attachment_id
-msgid "Main Attachment"
-msgstr "Haupt-Anhang"
 
 #. module: fieldservice_recurring
 #: model:res.groups,name:fieldservice_recurring.group_fsm_recurring
@@ -904,6 +887,15 @@ msgstr ""
 msgid "Yearly"
 msgstr "Jährlich"
 
+#~ msgid "SMS Delivery error"
+#~ msgstr "SMS-Zustellungsfehler"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Zuletzt geändert am"
+
+#~ msgid "Main Attachment"
+#~ msgstr "Haupt-Anhang"
+
 #~ msgid "Cancel"
 #~ msgstr "Abbrechen"
 
@@ -918,9 +910,6 @@ msgstr "Jährlich"
 
 #~ msgid "To Renew"
 #~ msgstr "Zu erneuern"
-
-#~ msgid "SMS Delivery error"
-#~ msgstr "SMS-Zustellungsfehler"
 
 #~ msgid "Number of messages which requires an action"
 #~ msgstr "Dies ist die Anzahl von Nachrichten, die eine Aktion benötigen."
