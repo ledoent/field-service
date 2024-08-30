@@ -371,9 +371,13 @@ msgstr ""
 
 #. module: fieldservice_recurring
 #: model:ir.model.fields,help:fieldservice_recurring.field_fsm_frequency__message_has_error
+#: model:ir.model.fields,help:fieldservice_recurring.field_fsm_frequency__message_has_sms_error
 #: model:ir.model.fields,help:fieldservice_recurring.field_fsm_frequency_set__message_has_error
+#: model:ir.model.fields,help:fieldservice_recurring.field_fsm_frequency_set__message_has_sms_error
 #: model:ir.model.fields,help:fieldservice_recurring.field_fsm_recurring__message_has_error
+#: model:ir.model.fields,help:fieldservice_recurring.field_fsm_recurring__message_has_sms_error
 #: model:ir.model.fields,help:fieldservice_recurring.field_fsm_recurring_template__message_has_error
+#: model:ir.model.fields,help:fieldservice_recurring.field_fsm_recurring_template__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -602,6 +606,14 @@ msgid "Position must be between -366 and 366"
 msgstr ""
 
 #. module: fieldservice_recurring
+#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency__rating_ids
+#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency_set__rating_ids
+#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring__rating_ids
+#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring_template__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: fieldservice_recurring
 #: model:ir.model,name:fieldservice_recurring.model_fsm_recurring
 msgid "Recurring Field Service Order"
 msgstr ""
@@ -655,6 +667,14 @@ msgstr ""
 #. module: fieldservice_recurring
 #: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring__activity_user_id
 msgid "Responsible User"
+msgstr ""
+
+#. module: fieldservice_recurring
+#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency__message_has_sms_error
+#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_frequency_set__message_has_sms_error
+#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring__message_has_sms_error
+#: model:ir.model.fields,field_description:fieldservice_recurring.field_fsm_recurring_template__message_has_sms_error
+msgid "SMS Delivery error"
 msgstr ""
 
 #. module: fieldservice_recurring
