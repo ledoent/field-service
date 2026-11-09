@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_fsm_order_form" model="ir.ui.view">
         <field name="model">fsm.order</field>
@@ -8,7 +9,7 @@
                     type="object"
                     name="action_view_fsm_recurring"
                     class="oe_stat_button"
-                    icon="fa-calendar"
+                    icon="today"
                     invisible="not fsm_recurring_id"
                     groups="fieldservice_recurring.group_fsm_recurring"
                 >

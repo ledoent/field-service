@@ -1,7 +1,6 @@
 # Copyright 2019 Ecosoft Co., Ltd (http://ecosoft.co.th/)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
-from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import WEEKLY, rrule
@@ -186,8 +185,8 @@ class FSMRecurringCase(TransactionCase):
             }
         )
         # Create Recurring Order link to this rule set
-        expire_date = datetime.today() + relativedelta(days=-22)
-        expire_date1 = datetime.today() + relativedelta(days=+22)
+        expire_date = fields.Datetime.now() + relativedelta(days=-22)
+        expire_date1 = fields.Datetime.now() + relativedelta(days=+22)
         recurring = self.Recurring.create(
             {
                 "fsm_frequency_set_id": fr_set.id,

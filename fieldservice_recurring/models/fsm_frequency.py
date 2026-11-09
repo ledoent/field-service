@@ -1,7 +1,8 @@
 # Copyright (C) 2019 Brian McMaster, Gray Matter Logic
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import pytz
+from zoneinfo import ZoneInfo
+
 from dateutil.rrule import (
     DAILY,
     FR,
@@ -35,7 +36,7 @@ FREQUENCY_SELECT = [
 class FSMFrequency(models.Model):
     _name = "fsm.frequency"
     _description = "Frequency Rule for Field Service Orders"
-    _inherit = ["mail.thread"]
+    _inherit = ("mail.thread",)
 
     name = fields.Char(required=True)
     active = fields.Boolean(default=True)
@@ -56,7 +57,7 @@ class FSMFrequency(models.Model):
         help="""Checking this box will make this an exclusive rule. Exclusive
             rules prevent the configured days from being a schedule option""",
     )
-    company_id = fields.Many2one("res.company", "Company")
+    company_id = fields.Many2one("res.company")
     use_bymonthday = fields.Boolean(
         string="Use Day of Month",
         help="""When selected you will be able to specify which calendar day
@@ -104,31 +105,27 @@ class FSMFrequency(models.Model):
     @api.constrains("set_pos")
     def _check_set_pos(self):
         for rec in self:
-            if rec.use_setpos:
-                if not (-366 < rec.set_pos < 366):
-                    raise UserError(self.env._("Position must be between -366 and 366"))
+            if rec.use_setpos and not (-366 < rec.set_pos < 366):
+                raise UserError(self.env._("Position must be between -366 and 366"))
 
     @api.constrains("month_day")
     def _check_month_day(self):
         for rec in self:
-            if rec.use_bymonthday:
-                if not (1 <= rec.month_day <= 31):
-                    raise UserError(
-                        self.env._("'Day of Month must be between 1 and 31")
-                    )
+            if rec.use_bymonthday and not (1 <= rec.month_day <= 31):
+                raise UserError(self.env._("'Day of Month must be between 1 and 31"))
 
     def _get_rrule(self, dtstart=None, until=None, tz=None):
         self.ensure_one()
         freq = FREQUENCIES[self.interval_type]
         # localize dtstart and until to user timezone
-        tz = pytz.timezone(tz) if tz else self.env.tz
+        tz = ZoneInfo(tz) if tz else self.env.tz
 
         if dtstart:
-            dtstart = pytz.timezone("UTC").localize(dtstart).astimezone(tz)
+            dtstart = dtstart.replace(tzinfo=ZoneInfo("UTC")).astimezone(tz)
         if until:
-            until = pytz.timezone("UTC").localize(until).astimezone(tz)
+            until = until.replace(tzinfo=ZoneInfo("UTC")).astimezone(tz)
             # We force until in the starting timezone to avoid incoherent results
-            until = tz.normalize(until.replace(tzinfo=dtstart.tzinfo))
+            until = until.replace(tzinfo=dtstart.tzinfo)
 
         return (
             # Replace original timezone with current date timezone
@@ -143,9 +140,7 @@ class FSMFrequency(models.Model):
             # utc naive -> datetime timezone aware
             # 2022-03-21 14:00:00 -> 2022-03-21 15:00:00+01:00
             # 2022-03-28 13:00:00 -> 2022-03-28 15:00:00+02:00
-            date.replace(tzinfo=tz.normalize(date).tzinfo)
-            .astimezone(pytz.UTC)
-            .replace(tzinfo=None)
+            date.replace(tzinfo=tz).astimezone(ZoneInfo("UTC")).replace(tzinfo=None)
             for date in rrule(
                 freq,
                 interval=self.interval,

@@ -6,3 +6,6 @@
 - Freni Patel \<<fpatel@graymatterlogic.com>\>
 - [APSL](https://apsl.tech):
   - Antoni Marroig  \<<amarroig@apsl.net>\>
+
+- [Ledo Enterprises](https://github.com/ledoent):
+  - Don Kendall <dkendall@ledoweb.com>
