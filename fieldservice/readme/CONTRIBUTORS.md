@@ -21,3 +21,6 @@
   - Antoni Marroig \<<amarroig@apsl.net>\>
 - [Komit Consulting](<https://komit-consulting.com>):
   - Truong Thi Kim Hoa \<<hoa-ttk@komit-consulting.com>\>
+
+- [Ledo Enterprises](https://github.com/ledoent):
+  - Don Kendall <dkendall@ledoweb.com>

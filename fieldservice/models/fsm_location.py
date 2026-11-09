@@ -1,22 +1,23 @@
 # Copyright (C) 2018 - TODAY, Gray Matter Logic
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from typing import Self
+
 from odoo import api, fields, models
-from odoo.api import Self
 from odoo.exceptions import UserError
 from odoo.fields import Domain
-from odoo.tools import SQL
+from odoo.tools import SQL, frozendict
 
 
 class FSMLocation(models.Model):
     _name = "fsm.location"
-    _inherits = {"res.partner": "partner_id"}
-    _inherit = ["mail.thread", "mail.activity.mixin", "fsm.model.mixin"]
+    _inherits = frozendict({"res.partner": "partner_id"})
+    _inherit = ("mail.thread", "mail.activity.mixin", "fsm.model.mixin")
     _description = "Field Service Location"
     _parent_name = "parent_id"
     _parent_store = True
     _stage_type = "location"
-    _rec_names_search = ["complete_name"]
+    _rec_names_search = ("complete_name",)
 
     direction = fields.Html()
     partner_id = fields.Many2one(
@@ -41,25 +42,19 @@ class FSMLocation(models.Model):
         index=True,
     )
     description = fields.Char()
-    territory_id = fields.Many2one("res.territory", string="Territory")
-    branch_id = fields.Many2one("res.branch", string="Branch")
-    district_id = fields.Many2one("res.district", string="District")
-    region_id = fields.Many2one("res.region", string="Region")
+    territory_id = fields.Many2one("res.territory")
+    branch_id = fields.Many2one("res.branch")
+    district_id = fields.Many2one("res.district")
+    region_id = fields.Many2one("res.region")
     territory_manager_id = fields.Many2one(
         string="Primary Assignment", related="territory_id.person_id"
     )
-    district_manager_id = fields.Many2one(
-        string="District Manager", related="district_id.partner_id"
-    )
-    region_manager_id = fields.Many2one(
-        string="Region Manager", related="region_id.partner_id"
-    )
-    branch_manager_id = fields.Many2one(
-        string="Branch Manager", related="branch_id.partner_id"
-    )
+    district_manager_id = fields.Many2one(related="district_id.partner_id")
+    region_manager_id = fields.Many2one(related="region_id.partner_id")
+    branch_manager_id = fields.Many2one(related="branch_id.partner_id")
 
     calendar_id = fields.Many2one("resource.calendar", string="Office Hours")
-    parent_id = fields.Many2one("fsm.location", string="Parent", index=True)
+    parent_id = fields.Many2one("fsm.location", index=True)
     parent_path = fields.Char(index=True)
     child_ids = fields.One2many(
         string="Children Locations",

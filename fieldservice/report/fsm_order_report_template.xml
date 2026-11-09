@@ -1,18 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="report_fsm_order_document">
-        <t t-call="web.external_layout">
-            <t t-set="address">
-                <div
-                    t-field="doc.location_id.partner_id"
-                    t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;email&quot;]}"
-                />
-            </t>
+        <t t-set="address">
+            <div
+                t-field="doc.location_id.partner_id"
+                t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;email&quot;]}"
+            />
+        </t>
+        <t t-call="web.external_layout" address="address">
             <div t-if="doc.date_end and doc.stage_id.is_closed" class="col-xs-3">
                 <strong>Date Completed:</strong>
                 <p t-field="doc.date_end" />
             </div>
             <div class="page">
-                <div class="oe_structure" id="oe_structure_1" />
+                <div id="oe_structure_1" class="oe_structure" />
                 <hr />
                 <h2>
                     FS Order #
@@ -47,7 +48,7 @@
                     <h3>Resolution Notes</h3>
                     <p t-field="doc.resolution" />
                 </div>
-                <div class="oe_structure" id="oe_structure_1" />
+                <div id="oe_structure_1" class="oe_structure" />
             </div>
         </t>
     </template>

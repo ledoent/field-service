@@ -12,7 +12,6 @@ class FsmModelMixin(models.AbstractModel):
 
     stage_id = fields.Many2one(
         "fsm.stage",
-        string="Stage",
         tracking=True,
         index=True,
         copy=False,
@@ -20,6 +19,12 @@ class FsmModelMixin(models.AbstractModel):
         default=lambda self: self._default_stage_id(),
     )
     hide = fields.Boolean()
+
+    def _valid_field_parameter(self, field, name):
+        # stage_id declares tracking= for the mail.thread models that inherit this
+        # mixin; the mixin itself is a plain AbstractModel, so allow the parameter
+        # here rather than let it warn at field setup.
+        return name == "tracking" or super()._valid_field_parameter(field, name)
 
     @api.model
     def _read_group_stage_ids(self, stages, domain):

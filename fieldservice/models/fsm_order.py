@@ -1,7 +1,7 @@
 # Copyright (C) 2018 Gray Matter Logic
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from markupsafe import Markup
 
@@ -15,7 +15,7 @@ from . import fsm_stage
 class FSMOrder(models.Model):
     _name = "fsm.order"
     _description = "Field Service Order"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _inherit = ("mail.thread", "mail.activity.mixin")
 
     def _default_stage_id(self):
         stage = self.env["fsm.stage"].search(
@@ -47,7 +47,7 @@ class FSMOrder(models.Model):
         "location_id",
     )
     def _compute_team_id(self):
-        cached_teams = dict()
+        cached_teams = {}
         for order in self:
             team = order.location_id.team_id
             if not team:
@@ -77,20 +77,19 @@ class FSMOrder(models.Model):
         """Get stage color"""
         self.custom_color = self.stage_id.custom_color or "#FFFFFF"
 
-    def _track_subtype(self, init_values):
+    def _track_log_get_default_subtype(self, track_init_values):
         self.ensure_one()
-        if "stage_id" in init_values:
+        if "stage_id" in track_init_values:
             if self.stage_id.id == self.env.ref("fieldservice.fsm_stage_completed").id:
                 return self.env.ref("fieldservice.mt_order_completed")
             elif (
                 self.stage_id.id == self.env.ref("fieldservice.fsm_stage_cancelled").id
             ):
                 return self.env.ref("fieldservice.mt_order_cancelled")
-        return super()._track_subtype(init_values)
+        return super()._track_log_get_default_subtype(track_init_values)
 
     stage_id = fields.Many2one(
         "fsm.stage",
-        string="Stage",
         tracking=True,
         index=True,
         copy=False,
@@ -114,10 +113,8 @@ class FSMOrder(models.Model):
         string="Tags",
         help="Classify and analyze your orders",
     )
-    color = fields.Integer("Color Index", default=0)
     team_id = fields.Many2one(
         "fsm.team",
-        string="Team",
         compute="_compute_team_id",
         precompute=True,
         store=True,
@@ -135,9 +132,7 @@ class FSMOrder(models.Model):
         default=lambda self: self.env._("New"),
     )
 
-    location_id = fields.Many2one(
-        "fsm.location", string="Location", index=True, required=True
-    )
+    location_id = fields.Many2one("fsm.location", index=True, required=True)
     location_directions = fields.Html(
         compute="_compute_location_directions",
         precompute=True,
@@ -151,7 +146,6 @@ class FSMOrder(models.Model):
     color = fields.Integer("Color Index")
     company_id = fields.Many2one(
         "res.company",
-        string="Company",
         required=True,
         index=True,
         default=lambda self: self.env.company,
@@ -168,7 +162,7 @@ class FSMOrder(models.Model):
         if vals.get("request_early", False):
             early = fields.Datetime.from_string(vals.get("request_early"))
         else:
-            early = datetime.now()
+            early = fields.Datetime.now()
 
         if vals.get("priority") == "0":
             vals["request_late"] = early + timedelta(
@@ -227,22 +221,21 @@ class FSMOrder(models.Model):
     # Location
     territory_id = fields.Many2one(
         "res.territory",
-        string="Territory",
         related="location_id.territory_id",
         store=True,
     )
     branch_id = fields.Many2one(
-        "res.branch", string="Branch", related="location_id.branch_id", store=True
+        "res.branch", related="location_id.branch_id", store=True
     )
     district_id = fields.Many2one(
-        "res.district", string="District", related="location_id.district_id", store=True
+        "res.district", related="location_id.district_id", store=True
     )
     region_id = fields.Many2one(
-        "res.region", string="Region", related="location_id.region_id", store=True
+        "res.region", related="location_id.region_id", store=True
     )
 
     # Fields for Geoengine Identify
-    display_name = fields.Char(related="name", string="Order")
+    display_name = fields.Char(related="name", compute=None, string="Order")
     street = fields.Char(related="location_id.street")
     street2 = fields.Char(related="location_id.street2")
     zip = fields.Char(related="location_id.zip")
@@ -256,7 +249,7 @@ class FSMOrder(models.Model):
     custom_color = fields.Char(related="stage_id.custom_color", string="Stage Color")
 
     # Template
-    template_id = fields.Many2one("fsm.template", string="Template")
+    template_id = fields.Many2one("fsm.template")
     category_ids = fields.Many2many("fsm.category", string="Categories")
     equipment_ids = fields.Many2many(
         "fsm.equipment",

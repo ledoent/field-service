@@ -102,7 +102,7 @@ class TestFSMOrder(FSMCommon):
             "location_id": self.test_location.id,
             "stage_id": self.stage1.id,
         }
-        for priority, _late_days in priority_vs_late_days.items():
+        for priority in priority_vs_late_days:
             vals.update({"priority": priority})
             self.env["fsm.order"].create(vals)
             vals2 = {
@@ -203,11 +203,11 @@ class TestFSMOrder(FSMCommon):
         config.module_fieldservice_repair = True
         config._onchange_module_fieldservice_repair()
         self.assertTrue(config.group_fsm_equipment)
-        order3._track_subtype(self.init_values)
-        order4._track_subtype(self.init_values)
-        order3._track_subtype(self.init_values_2)
-        order4._track_subtype(self.init_values_2)
-        order4._track_subtype(self.init_values2)
+        order3._track_log_get_default_subtype(self.init_values)
+        order4._track_log_get_default_subtype(self.init_values)
+        order3._track_log_get_default_subtype(self.init_values_2)
+        order4._track_log_get_default_subtype(self.init_values_2)
+        order4._track_log_get_default_subtype(self.init_values2)
         order4.action_complete()
         order3.action_cancel()
         self.env.user.company_id.auto_populate_equipments_on_order = True
@@ -296,7 +296,7 @@ class TestFSMOrder(FSMCommon):
         order2.location_id.parent_id = self.location_1.id
         data = (
             self.env["fsm.order"]
-            .with_context(**{"default_team_id": self.test_team.id})
+            .with_context(default_team_id=self.test_team.id)
             .with_user(self.env.user)
             ._read_group(
                 domain=Domain("id", "=", order.id),
