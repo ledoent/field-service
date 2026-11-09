@@ -1,0 +1,6 @@
+- Brian McMaster \<<brian@mcmpest.com>\>
+- [APSL](https://apsl.tech):
+  - Antoni Marroig   \<<amarroig@apsl.net>\>
+- [PyTech](https://www.pytech.it):
+  - Simone Rubino \<<simone.rubino@pytech.it>\>
+- Don Kendall \<<dkendall@ledoweb.com>\>
