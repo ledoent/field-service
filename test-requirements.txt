@@ -1,0 +1,5 @@
+# These three have no 20.0 wheels yet; their ports are ledoent/field-service#1,
+# #2 and #3. Drop this file once they land upstream.
+odoo-addon-base_territory @ git+https://github.com/ledoent/field-service@20.0-mig-base_territory#subdirectory=base_territory
+odoo-addon-fieldservice @ git+https://github.com/ledoent/field-service@20.0-mig-fieldservice#subdirectory=fieldservice
+odoo-addon-fieldservice_project @ git+https://github.com/ledoent/field-service@20.0-mig-fieldservice_project#subdirectory=fieldservice_project
