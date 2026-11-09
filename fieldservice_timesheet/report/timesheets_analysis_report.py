@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
+from odoo.tools import SQL
 
 
 class TimesheetsAnalysisReport(models.Model):
@@ -13,9 +14,11 @@ class TimesheetsAnalysisReport(models.Model):
 
     @api.model
     def _select(self):
-        return (
-            super()._select()
-            + """,
+        # 20.0 returns an SQL object here, not a str, so the columns are composed
+        # with SQL(...) rather than concatenated. Mirrors sale_timesheet's override.
+        return SQL(
+            """%s,
             A.fsm_order_id AS fsm_order_id
-        """
+        """,
+            super()._select(),
         )
