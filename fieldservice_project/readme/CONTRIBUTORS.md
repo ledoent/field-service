@@ -1,0 +1,8 @@
+- [Pavlov Media](https://www.pavlovmedia.com):
+  - Patrick Wilson \<<pwilson@pavlovmedia.com>\>
+- [Gray Matter Logic](https://www.graymatterlogic.com):
+  - Bhavesh Odedra \<<bodedra@graymatterlogic.com>\>
+  - Freni Patel \<<fpatel@graymatterlogic.com>\>
+
+- [Ledo Enterprises](https://github.com/ledoent):
+  - Don Kendall <dkendall@ledoweb.com>
