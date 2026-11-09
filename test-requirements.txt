@@ -1,0 +1,3 @@
+# base_territory has no 20.0 wheel on PyPI yet: its own port is ledoent/field-service#1
+# (upstream slot unclaimed on OCA/field-service#1636). Drop this file once that lands.
+odoo-addon-base_territory @ git+https://github.com/ledoent/field-service@20.0-mig-base_territory#subdirectory=base_territory
